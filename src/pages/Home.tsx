@@ -14,35 +14,35 @@ const foodItems = [
       id: 1,
       name: "Pizza Margherita",
       Description : "Tastiest food that will leave you wanting more",
-      price: 10.99,
+      price: 50,
       image: "pizza.jpeg", 
    },
    {
       id: 2,
       name: "Spaghetti Carbonara",
       Description : "Tastiest food that will leave you wanting more",
-      price: 99.9554,
+      price: 50,
       image: "spagetti.jpeg",
    },
    {
       id: 3,
       name: "Grilled Chicken",
       Description : "Tastiest food that will leave you wanting more",
-      price: 170,
+      price: 50,
       image: "chicken.jpeg", 
    },
    {
       id: 4,
       name: "Caesar Salad",
       Description : "Tastiest food that will leave you wanting more",
-      price: 100,
+      price: 50,
       image: "salad.jpeg", 
    },
    {
       id: 5,
       name: "Potato Salads",
       Description : "Tastiest food that will leave you wanting more",
-      price: 180.99,
+      price: 50,
       image: "potatoe.jpeg", 
    },
 ];
@@ -61,7 +61,7 @@ export const Home: React.FC = () => {
             <p className="text-3xl font-semibold">Mamas Kitchen</p>
             <Divider />
          </div>
-         <div className="p-5 grid grid-cols-5 gap-14 mt-20">
+         <div className="p-5 grid grid-cols-1 gap-14 mt-20 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 ">
             {foodItems.map((item) => (
                <Card key={item.id} className="shadow-md">
                   <CardMedia
@@ -76,7 +76,7 @@ export const Home: React.FC = () => {
                      </Typography>
                      <Typography variant="body1">{item.Description}</Typography>
                      <Typography variant="body2" color="text.secondary">
-                        ZMW{item.price.toFixed(2)}
+                        ZMW {item.price.toFixed(2)}
                      </Typography>
                      <div className="items-center justify-center flex">
                         <Button variant="contained" color="primary" className="mt-2 w-full" onClick={() => letsNavigate(item)}>
