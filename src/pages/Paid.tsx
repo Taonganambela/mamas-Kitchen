@@ -36,8 +36,8 @@ export const Paid: React.FC = () => {
       if (!number.trim()) {
          newErrors.number = "Number is required";
          isValid = false;
-      } else if (!/^\d{9,15}$/.test(number)) {
-         newErrors.number = "Enter a valid phone number";
+      } else if (!/^\d{11,12}$/.test(number)) {
+         newErrors.number = "Enter a valid phone number,starting with";
          isValid = false;
       }
 
@@ -74,7 +74,7 @@ export const Paid: React.FC = () => {
       try {
          // setOpen(true);
          setLoading(true)
-         const externalIds = String(generateRandomNumber(100000, 999999999999999999999999));
+         const externalIds = String(generateRandomNumber(100000, 999999999999));
          const response = await axios.post(
             "https://lipila-uat.hobbiton.app/transactions/mobile-money",
             {
@@ -94,8 +94,10 @@ export const Paid: React.FC = () => {
                },
             }
          );
+         setSuccessMessage("Please wait, while your transaction is being processed!");        // setSuccessMessage(`Your transaction is ${response.data.status}`)
+
          console.log("reached if statement")
-         if (response.status){
+         if (response.data.status == "Successful"){
             console.log('status', response.data.success);
             setSuccessMessage(`Your Payment for ${item.name} is successfull `);
          }
@@ -106,14 +108,14 @@ export const Paid: React.FC = () => {
          setNumber("");
          setEmail("");
          console.log("API response:", response.data);
-         setSuccessMessage("Please wait, while your transaction is being processed!");
          setOpen(true);
          setLoading(false);
+         setSuccessMessage(`Your transaction is ${response.data.status}, Please confirm your final status from the counter from the counter`);        // setSuccessMessage(`Your transaction is ${response.data.status}`)
+
       } catch (error) {
-
-
          console.error("API request error:", error);
-         setSuccessMessage("An error occurred. Please try again."); setOpen(true);
+         setSuccessMessage("An error occurred verify your input data . Please try again."); 
+         setOpen(true);
          setLoading(false)
       }
    };
@@ -201,7 +203,13 @@ export const Paid: React.FC = () => {
                      fullWidth
                      className="bg-gray-50"
                      value={number}
-                     onChange={(e) => setNumber(e.target.value)}
+                     onChange={(e) => {
+                        const inputValue = e.target.value;
+                        if (inputValue.length <= 12) {
+                           setNumber(inputValue);
+                           
+                        }
+                     }}
                      error={Boolean(errors.number)}
                      helperText={errors.number}
                   />
@@ -227,8 +235,6 @@ export const Paid: React.FC = () => {
                   onClick={letsNotify}
                   loading={loading}
                   loadingPosition="start"
-               // startIcon={<SaveIcon />}
-               // loading
                >
                   Submit
                </LoadingButton>
