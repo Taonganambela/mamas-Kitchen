@@ -1,10 +1,13 @@
 {
   "name": "mamas-kitchen",
+  "homepage": "https://taonganambela.github.io/mamas-Kitchen/",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
+    "predeploy": "yarn run build",
+    "deploy": "gh-pages -d build",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
