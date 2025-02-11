@@ -58,6 +58,7 @@ export const Paid: React.FC = () => {
 
 
    const letsNotify = async () => {
+      console.log('here')
       // setLoading(true)
       if (!validateFields()) {
          return;
@@ -69,14 +70,12 @@ export const Paid: React.FC = () => {
 
       const { name: itemName, price } = item;
 
-
-
       try {
          // setOpen(true);
          setLoading(true)
          const externalIds = String(generateRandomNumber(100000, 999999999999));
          const response = await axios.post(
-            "https://lipila-uat.hobbiton.app/transactions/mobile-money",
+            `https://lipila-uat.hobbiton.app/transactions/mobile-money`,
             {
                currency: "ZMW",
                amount: price,
@@ -94,8 +93,9 @@ export const Paid: React.FC = () => {
                },
             }
          );
+         console.log('here also')
          setSuccessMessage("Please wait, while your transaction is being processed!");        // setSuccessMessage(`Your transaction is ${response.data.status}`)
-
+         
          console.log("reached if statement")
          if (response.data.status == "Successful"){
             console.log('status', response.data.success);
