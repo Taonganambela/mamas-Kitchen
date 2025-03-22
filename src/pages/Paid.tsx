@@ -1,6 +1,6 @@
 
 import { TextField, Typography, Snackbar, Alert, IconButton, SnackbarCloseReason } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { IMenu } from "./Home";
@@ -37,7 +37,7 @@ export const Paid: React.FC = () => {
          newErrors.number = "Number is required";
          isValid = false;
       } else if (!/^\d{11,12}$/.test(number)) {
-         newErrors.number = "Enter a valid phone number,starting with";
+         newErrors.number = "Enter a valid phone number,starting with 260";
          isValid = false;
       }
 
@@ -75,7 +75,7 @@ export const Paid: React.FC = () => {
          setLoading(true)
          const externalIds = String(generateRandomNumber(100000, 999999999999));
          const response = await axios.post(
-            `https://lipila-uat.hobbiton.app/transactions/mobile-money`,
+            `https://api.lipila.io/transactions/mobile-money`,
             {
                currency: "ZMW",
                amount: price,
@@ -88,19 +88,20 @@ export const Paid: React.FC = () => {
             },             
             {
                headers: {
-                  Authorization: `Bearer LPLSECK-3a16e25fef8a4894bae17a829f004af7`,
+                  Authorization: `Bearer LPLSECK-0d8ba4a3118443b5b310504b7413b818`,
                   "Content-Type": "application/json",
                },
             }
          );
-         console.log('here also')
+         // console.log('here also')
          setSuccessMessage("Please wait, while your transaction is being processed!");        // setSuccessMessage(`Your transaction is ${response.data.status}`)
          
-         console.log("reached if statement")
-         if (response.data.status == "Successful"){
-            console.log('status', response.data.success);
-            setSuccessMessage(`Your Payment for ${item.name} is successfull `);
-         }
+         // console.log("reached if statement")
+         // if (response.data.status == "Successful"){
+            
+         //    // console.log('status', response.data.success);
+         //    setSuccessMessage(`Your Payment for ${item.name} is successfull `);
+         // }
          console.log("after if statement");
             setLoading(true);
          // setOpen(false);
@@ -110,7 +111,9 @@ export const Paid: React.FC = () => {
          console.log("API response:", response.data);
          setOpen(true);
          setLoading(false);
+      
          setSuccessMessage(`Your transaction is ${response.data.status}, Please confirm your final status from the counter from the counter`);        // setSuccessMessage(`Your transaction is ${response.data.status}`)
+         
 
       } catch (error) {
          console.error("API request error:", error);
@@ -119,6 +122,8 @@ export const Paid: React.FC = () => {
          setLoading(false)
       }
    };
+
+
 
    const handleClose = (
       _event: React.SyntheticEvent | Event,
