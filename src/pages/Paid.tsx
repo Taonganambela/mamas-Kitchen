@@ -1,6 +1,6 @@
 
 import { TextField, Typography, Snackbar, Alert, IconButton, SnackbarCloseReason } from "@mui/material";
-import { useEffect, useState } from "react";
+import {useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { IMenu } from "./Home";
