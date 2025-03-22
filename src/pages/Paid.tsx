@@ -112,7 +112,7 @@ export const Paid: React.FC = () => {
          setOpen(true);
          setLoading(false);
       
-         setSuccessMessage(`Your transaction is ${response.data.status}, Please confirm your final status from the counter from the counter`);        // setSuccessMessage(`Your transaction is ${response.data.status}`)
+         setSuccessMessage(`Your transaction is ${response.data.status}, Please return to the counter`);        // setSuccessMessage(`Your transaction is ${response.data.status}`)
          
 
       } catch (error) {
